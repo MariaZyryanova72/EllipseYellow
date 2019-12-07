@@ -1,12 +1,25 @@
 import sys, random
-from PyQt5.Qt import QWidget, QPainter, QApplication, QMainWindow, QColor
-from Ui import Ui_MainWindow
+from PyQt5.Qt import QPainter, QApplication, QColor, QPushButton, QMainWindow
 
-class App(QMainWindow, Ui_MainWindow):
+
+class Interface(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setGeometry(150, 150, 529, 498)
+        self.setWindowTitle('Рисование КРУГА')
+
+        self.pushButton = QPushButton("Нарисовать круг", self)
+        self.pushButton.resize(511, 31)
+        self.pushButton.move(10, 20)
+
+
+class App(Interface):
     def __init__(self):
         self.flag = False
         super().__init__()
-        self.setupUi(self)
         self.pushButton.clicked.connect(self.run)
 
     def run(self):
@@ -20,7 +33,7 @@ class App(QMainWindow, Ui_MainWindow):
         if self.flag:
             qp = QPainter()
             qp.begin(self)
-            qp.setBrush(QColor(255, 237, 0))
+            qp.setBrush(QColor(random.randrange(255), random.randrange(255), random.randrange(255)))
             a = random.randrange(1, 351)
             qp.drawEllipse(100, 100, a, a)
             qp.end()
